@@ -36,18 +36,18 @@ $this->mikecache->clear('my_query');
 ```
 
 # What it does
-The library picks up the query where you left off. First it checks if it has been cached and compares the cached filetime with your supplied time. If file is recent, then it loads the serialized cached results from file and sends it back. If not, it just finishes the query using query builder, caches the result and sends it back to your controller.
+The library picks up the query where you left off. First it checks if it has been cached by comparing a hash of the query and then compares the cached filetime (if exists) with your supplied time. If file is recent, then it loads the serialized cached results from file and sends it back. If not or doesn't exists, it just finishes the query using query builder, caches the result and sends it back to your controller.
 
 # When is it useful?
 This library is useful if your queries are large, complicated and/or repetitive.
 
-Example:
+Example, getting posts from today:
 ```php
 // Good example
 $this->db->select('*');
 $this->db->from('my_table t');
 $this->db->join('other_table t2', 't2.id = t.id_table2');
-$this->db->where('date(created)', 'DATE(Now())', FALSE);
+$this->db->where('DATE(created)', 'CURDATE()', FALSE);
 $this->db->order_by('created', 'DESC')->limit(10);
 ```
 This is a good example because your query will be exactly the same everytime you run it (at least for a day), then the library will help you by reducing database access and query times, especially if it's a large and complicated query.
