@@ -72,5 +72,6 @@ I had some queries that according to CodeIgniter Profiler were taking over 4 sec
 This library saves me tons of database access and processing time.
 
 # About Me
-Web developer, CodeIgniter lover
+Web developer, CodeIgniter
+
 Venezuela
